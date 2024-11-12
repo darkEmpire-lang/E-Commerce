@@ -27,7 +27,7 @@ app.use(
 
 // Sample Route to Check Server Status
 app.get('/', (req, res) => {
-  res.json({ message: "Hello, your backend is working!" });
+  res.send({ message: "Hello, your backend is working!" });
 });
 
 // Import and Use Product Routes
