@@ -26,7 +26,7 @@ app.use(
 );
 
 // Sample Route to Check Server Status
-app.get('/hello', (req, res) => {
+app.get('/', (req, res) => {
   res.json({ message: "Hello, your backend is working!" });
 });
 
