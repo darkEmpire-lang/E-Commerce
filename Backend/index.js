@@ -33,8 +33,8 @@ if (!mongoURI) {
 }
 
 mongoose.connect(mongoURI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+ // useNewUrlParser: true,
+  //useUnifiedTopology: true,
 }).then(() => {
   console.log("MongoDB connected successfully");
 }).catch(err => {
