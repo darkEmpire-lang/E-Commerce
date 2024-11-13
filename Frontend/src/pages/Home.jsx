@@ -23,7 +23,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('https://e-commerce-one-livid-92.vercel.app/products');
+        const response = await fetch('/products');
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
@@ -95,41 +95,116 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
+        <div className="flex items-center gap-3 mb-4">
+          <select
+            className="p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 font-medium shadow-sm hover:bg-gray-200 transition-colors"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            {categories.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="flex-grow p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          <button
+            type="button"
+            className="p-2 rounded-lg bg-blue-600 text-white font-medium shadow-md hover:bg-blue-700 transition-all"
+            onClick={() => console.log('Search triggered')}
+          >
+            Search
+          </button>
+        </div>
+
+        {/* Price Range Filter */}
+        <div className="flex items-center gap-3 mt-4">
+          <label htmlFor="price-range" className="block text-sm font-medium text-gray-900">
+            Min Price: Rs {minPrice}
+          </label>
+          <input
+            id="price-range"
+            type="range"
+            min="0"
+            max="500000"
+            value={minPrice}
+            onChange={(e) => setMinPrice(Number(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+          />
+
+          <label htmlFor="price-range-max" className="block text-sm font-medium text-gray-900">
+            Max Price: Rs {maxPrice}
+          </label>
+          <input
+            id="price-range-max"
+            type="range"
+            min="0"
+            max="500000"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+          />
+        </div>
+      </div>
+
 
       {/* Product Grid */}
       <div className="container">
         <div className="row">
           {filteredProducts.map((product) => (
-            <div key={product._id} className="col-6 col-md-4 col-lg-2 mb-4 d-flex justify-content-center">
-              <div className="card product-card shadow-sm rounded-lg" style={{ width: '170px', height: '280px' }}>
+            <div key={product._id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+              <div className="card product-card shadow-sm rounded-lg overflow-hidden">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
                   className="card-img-top"
                   style={{
-                    height: '140px',
+                    height: '300px',
                     objectFit: 'cover',
                     borderTopLeftRadius: '8px',
                     borderTopRightRadius: '8px',
                   }}
                 />
-                <div className="card-body p-2 d-flex flex-column justify-content-between">
-                  <h6 className="card-title mb-1 text-truncate" style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
+                <div className="card-body p-3">
+                  <h6 className="card-title" style={{
+                    fontSize: '1rem', 
+                    fontWeight: 'bold', 
+                    textOverflow: 'ellipsis', 
+                    whiteSpace: 'nowrap', 
+                    overflow: 'hidden', 
+                    maxWidth: '100%'
+                  }}>
                     {product.name}
                   </h6>
-                  <p className="card-text mb-2 text-muted" style={{ fontSize: '0.75rem' }}>
-                    {product.description.length > 40 ? product.description.slice(0, 40) + '...' : product.description}
+                  <p className="card-text" style={{ fontSize: '0.9rem', color: '#666' }}>
+                    {product.description.length > 100 ? product.description.slice(0, 100) + '...' : product.description}
                   </p>
-                  <p className="card-text mb-2 font-weight-bold" style={{ fontSize: '0.9rem' }}>Rs {product.price}</p>
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <p className="card-text" style={{ fontWeight: 'bold', fontSize: '1rem' }}>
+                      Rs {product.price}
+                    </p>
+                  </div>
                   <div className="d-flex gap-2">
-                    <a href={product.darazLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm d-flex align-items-center justify-content-center flex-grow-1">
-                      <FaShoppingCart className="mr-1" /> Buy Now
+                    <a href={product.darazLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-50 d-flex align-items-center justify-content-center">
+                      <FaShoppingCart className="mr-2" />
+                      Buy Now
                     </a>
                     <button
-                      className="btn btn-secondary btn-sm d-flex align-items-center justify-content-center flex-grow-1"
+                      className="btn btn-secondary w-50 d-flex align-items-center justify-content-center"
                       onClick={() => handleShareClick(product.darazLink)}
                     >
-                      <FaShareAlt className="mr-1" /> Share
+                      <FaShareAlt className="mr-2" />
+                      Share
                     </button>
                   </div>
                 </div>
