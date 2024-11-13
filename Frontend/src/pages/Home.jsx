@@ -74,12 +74,12 @@ const Home = () => {
   };
 
   return (
-    <div className="home-container bg-light min-h-screen py-8">
+    <div className="home-container bg-light min-vh-100 py-4">
       {/* Banner Section */}
-      <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
-        <div className="flex items-center gap-3 mb-4">
+      <div className="container d-flex flex-column align-items-center mb-5" style={{ marginTop: '20px' }}>
+        <div className="d-flex flex-column flex-md-row align-items-center gap-3 mb-4 w-100">
           <select
-            className="p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 font-medium shadow-sm hover:bg-gray-200 transition-colors"
+            className="p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 font-medium shadow-sm w-100 w-md-auto"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -94,14 +94,14 @@ const Home = () => {
           <input
             type="text"
             placeholder="Search for products..."
-            className="flex-grow p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+            className="p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 shadow-sm w-100 w-md-auto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
 
           <button
             type="button"
-            className="p-2 rounded-lg bg-blue-600 text-white font-medium shadow-md hover:bg-blue-700 transition-all"
+            className="btn btn-primary p-2 shadow-md w-100 w-md-auto"
             onClick={() => console.log('Search triggered')}
           >
             Search
@@ -109,31 +109,26 @@ const Home = () => {
         </div>
 
         {/* Price Range Filter */}
-        <div className="flex items-center gap-3 mt-4">
-          <label htmlFor="price-range" className="block text-sm font-medium text-gray-900">
-            Min Price: Rs {minPrice}
-          </label>
+        <div className="d-flex flex-column flex-md-row align-items-center gap-3 mt-4 w-100">
+          <label htmlFor="min-price" className="text-muted">Min Price: Rs {minPrice}</label>
           <input
-            id="price-range"
+            id="min-price"
             type="range"
             min="0"
             max="500000"
             value={minPrice}
             onChange={(e) => setMinPrice(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+            className="form-range"
           />
-
-          <label htmlFor="price-range-max" className="block text-sm font-medium text-gray-900">
-            Max Price: Rs {maxPrice}
-          </label>
+          <label htmlFor="max-price" className="text-muted">Max Price: Rs {maxPrice}</label>
           <input
-            id="price-range-max"
+            id="max-price"
             type="range"
             min="0"
             max="500000"
             value={maxPrice}
             onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+            className="form-range"
           />
         </div>
       </div>
@@ -142,45 +137,34 @@ const Home = () => {
       <div className="container">
         <div className="row">
           {filteredProducts.map((product) => (
-            <div key={product._id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-              <div className="card product-card shadow-sm rounded-lg overflow-hidden">
+            <div key={product._id} className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4 d-flex">
+              <div className="card product-card shadow-sm rounded-lg w-100 overflow-hidden">
                 <img
                   src={product.imageUrl}
                   alt={product.name}
                   className="card-img-top"
                   style={{
-                    height: '300px',
+                    height: '250px',
                     objectFit: 'cover',
-                    borderTopLeftRadius: '8px',
-                    borderTopRightRadius: '8px',
                   }}
                 />
                 <div className="card-body p-3">
-                  <h6 className="card-title" style={{
-                    fontSize: '1rem', 
-                    fontWeight: 'bold', 
-                    textOverflow: 'ellipsis', 
-                    whiteSpace: 'nowrap', 
-                    overflow: 'hidden', 
-                    maxWidth: '100%'
-                  }}>
+                  <h6 className="card-title mb-1 text-truncate font-weight-bold">
                     {product.name}
                   </h6>
-                  <p className="card-text" style={{ fontSize: '0.9rem', color: '#666' }}>
-                    {product.description.length > 100 ? product.description.slice(0, 100) + '...' : product.description}
+                  <p className="card-text text-muted small">
+                    {product.description.length > 80 ? product.description.slice(0, 80) + '...' : product.description}
                   </p>
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <p className="card-text" style={{ fontWeight: 'bold', fontSize: '1rem' }}>
-                      Rs {product.price}
-                    </p>
+                    <span className="card-text font-weight-bold">Rs {product.price}</span>
                   </div>
                   <div className="d-flex gap-2">
-                    <a href={product.darazLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-50 d-flex align-items-center justify-content-center">
+                    <a href={product.darazLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary flex-grow-1 d-flex align-items-center justify-content-center">
                       <FaShoppingCart className="mr-2" />
                       Buy Now
                     </a>
                     <button
-                      className="btn btn-secondary w-50 d-flex align-items-center justify-content-center"
+                      className="btn btn-secondary flex-grow-1 d-flex align-items-center justify-content-center"
                       onClick={() => handleShareClick(product.darazLink)}
                     >
                       <FaShareAlt className="mr-2" />

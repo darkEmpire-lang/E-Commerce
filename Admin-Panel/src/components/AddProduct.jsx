@@ -166,25 +166,44 @@ export default function AddProduct() {
                                 </div>
 
                                 <div className="row mb-3">
-                                    <div className="col-md-6">
-                                        <label htmlFor="category" className="form-label">
-                                            <i className="bi bi-tags icon-color me-2"></i>Category
-                                        </label>
-                                        <select
-                                            className="form-select"
-                                            id="category"
-                                            value={category}
-                                            onChange={handleCategoryChange}
-                                            required
-                                        >
-                                            <option value="">Select Category</option>
-                                            <option value="Electronics">Electronics</option>
-                                            {/* Other options here */}
-                                        </select>
-                                        {categoryError && (
-                                            <div className="text-danger mt-1">{categoryError}</div>
-                                        )}
-                                    </div>
+                                <div className="col-md-6">
+    <label htmlFor="category" className="form-label">
+        <i className="bi bi-tags icon-color me-2"></i>Category
+    </label>
+    <select
+        className="form-select"
+        id="category"
+        value={category}
+        onChange={handleCategoryChange}
+        required
+    >
+        <option value="">Select Category</option>
+        <option value="Mobile Phones">Mobile Phones</option>
+        <option value="Apple Phones">Apple Phones</option>
+        <option value="Clothes">Clothes</option>
+        <option value="Pens">Pens</option>
+        <option value="Pen Drives">Pen Drives</option>
+        <option value="Hard Drives">Hard Drives</option>
+        <option value="Mice">Mice</option>
+        <option value="Keyboards">Keyboards</option>
+        <option value="Stationery Items">Stationery Items</option>
+        <option value="Earbuds">Earbuds</option>
+        <option value="Headphones">Headphones</option>
+        <option value="Laptops">Laptops</option>
+        <option value="Tablets">Tablets</option>
+        <option value="Smart Watches">Smart Watches</option>
+        <option value="Chargers">Chargers</option>
+        <option value="Cables">Cables</option>
+        <option value="Speakers">Speakers</option>
+        <option value="Camera Accessories">Camera Accessories</option>
+        <option value="TVs">TVs</option>
+        <option value="Home Appliances">Home Appliances</option>
+    </select>
+    {categoryError && (
+        <div className="text-danger mt-1">{categoryError}</div>
+    )}
+</div>
+
 
                                     <div className="col-md-6">
                                         <label htmlFor="darazLink" className="form-label">
