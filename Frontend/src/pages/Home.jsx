@@ -23,7 +23,7 @@ const Home = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/products');
+        const response = await fetch('https://e-commerce-one-livid-92.vercel.app/products');
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);
@@ -95,6 +95,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+
       <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
         <div className="flex items-center gap-3 mb-4">
           <select
