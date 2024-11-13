@@ -11,7 +11,23 @@ const helmet = require('helmet');
 const app = express();
 
 // Middleware
-app.use(cors());
+const allowedOrigins = [
+  'https://e-commerce-frontend-one-rouge.vercel.app', // Your frontend URL
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g., mobile apps, CURL)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = 'The CORS policy for this site does not allow access from the specified origin.';
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
+  })
+);
 app.use(express.json());
 
 // Set up Helmet for Content Security Policy
@@ -45,8 +61,8 @@ if (!mongoURI) {
 // Connect to MongoDB
 mongoose
   .connect(mongoURI, {
-   // useNewUrlParser: true,
-    //useUnifiedTopology: true,
+    // useNewUrlParser: true,
+    // useUnifiedTopology: true,
   })
   .then(() => {
     console.log("MongoDB connected successfully");

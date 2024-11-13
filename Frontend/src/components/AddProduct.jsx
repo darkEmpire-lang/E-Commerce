@@ -89,7 +89,7 @@ export default function AddProduct() {
             category
         };
 
-        axios.post("http://localhost:5000/products/add", newProduct)
+        axios.post("https://e-commerce-one-livid-92.vercel.app/products/add", newProduct)
             .then(() => {
                 Swal.fire({
                     icon: 'success',

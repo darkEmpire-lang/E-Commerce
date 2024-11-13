@@ -19,7 +19,7 @@ const ProductList = () => {
   // Function to fetch products from the backend
   const fetchProducts = async () => {
     try {
-      const response = await fetch('http://localhost:5000/products'); // Update this URL if needed
+      const response = await fetch('https://e-commerce-one-livid-92.vercel.app/products'); // Update this URL if needed
       const data = await response.json();
       setProducts(data);
     } catch (error) {
@@ -46,7 +46,7 @@ const ProductList = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await fetch(`http://localhost:5000/products/delete/${productId}`, {
+          const response = await fetch(`https://e-commerce-one-livid-92.vercel.app/products/delete/${productId}`, {
             method: 'DELETE',
           });
           if (response.ok) {

@@ -14,7 +14,7 @@ const AllProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:5000/products');
+        const response = await fetch('https://e-commerce-one-livid-92.vercel.app/products');
         const data = await response.json();
         setProducts(data);
         setFilteredProducts(data);

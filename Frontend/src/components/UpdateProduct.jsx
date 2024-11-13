@@ -33,7 +33,7 @@ const UpdateProduct = ({ product, onClose, onUpdateSuccess }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:5000/products/update/${product._id}`, {
+      const response = await fetch(`https://e-commerce-one-livid-92.vercel.app/products/update/${product._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
