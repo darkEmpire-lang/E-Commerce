@@ -47,12 +47,12 @@ const Header = () => {
             <Nav.Link as={Link} to="/about" className="text-light mx-2 nav-link">
               About Us
             </Nav.Link>
-            <Nav.Link as={Link} to="/contact" className="text-light mx-2 nav-link">
-              Contact
+            <Nav.Link as={Link} to="/add-product" className="text-light mx-2 nav-link">
+              Add Product
             </Nav.Link>
 
             <Nav.Link as={Link} to="/all-product" className="text-light mx-2 nav-link">
-              Login
+              All Product details
             </Nav.Link>
           </Nav>
 
