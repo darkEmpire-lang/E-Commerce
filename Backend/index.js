@@ -10,26 +10,28 @@ const helmet = require('helmet');
 // Initialize Express app
 const app = express();
 
-// Middleware
+// Allowed origins for CORS
 const allowedOrigins = [
   'https://e-commerce-frontend-one-rouge.vercel.app', 
-   'https://deal-mate-admin-panel.vercel.app/'
+  'https://deal-mate-admin-panel.vercel.app'
 ];
 
+// CORS middleware configuration
 app.use(
   cors({
     origin: function (origin, callback) {
       // Allow requests with no origin (e.g., mobile apps, CURL)
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg = 'The CORS policy for this site does not allow access from the specified origin.';
-        return callback(new Error(msg), false);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('The CORS policy for this site does not allow access from the specified origin.'));
       }
-      return callback(null, true);
-    },
+    }
   })
 );
-app.use(express.json());
+
+app.use(express.json()); // JSON parser middleware
 
 // Set up Helmet for Content Security Policy
 app.use(
@@ -51,19 +53,19 @@ app.get('/', (req, res) => {
 const productRoutes = require('./routes/ProductRoutes');
 app.use('/products', productRoutes);
 
-// MongoDB Connection
-const mongoURI = process.env.MONGO_URI; // Use the MONGO_URI from the .env file
+// MongoDB URI (checking if it's correctly loaded from .env)
+const mongoURI = process.env.MONGO_URI;
 
 if (!mongoURI) {
   console.error("Error: Missing MONGO_URI in .env file");
-  process.exit(1); // Exit the process if Mongo URI is missing
+  process.exit(1); // Exit if Mongo URI is missing
 }
 
 // Connect to MongoDB
 mongoose
   .connect(mongoURI, {
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("MongoDB connected successfully");
