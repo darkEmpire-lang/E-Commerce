@@ -155,3 +155,11 @@
   max-width: 300px;
   text-align: center;
 }
+
+
+@media (max-width: 576px) {
+  .btn {
+    font-size: 0.85rem;
+    padding: 8px 0;
+  }
+}

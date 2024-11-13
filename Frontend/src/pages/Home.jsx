@@ -194,19 +194,37 @@ const Home = () => {
                       Rs {product.price}
                     </p>
                   </div>
-                  <div className="d-flex gap-2">
-                    <a href={product.darazLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary w-50 d-flex align-items-center justify-content-center">
-                      <FaShoppingCart className="mr-2" />
-                      Buy Now
-                    </a>
-                    <button
-                      className="btn btn-secondary w-50 d-flex align-items-center justify-content-center"
-                      onClick={() => handleShareClick(product.darazLink)}
-                    >
-                      <FaShareAlt className="mr-2" />
-                      Share
-                    </button>
-                  </div>
+                  <div className="d-flex gap-2 justify-content-between">
+  <a
+    href={product.darazLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-nowrap"
+    style={{
+      fontSize: '0.9rem',
+      padding: '10px 0',
+      borderRadius: '8px',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    <FaShoppingCart style={{ marginRight: '5px' }} />
+    Buy Now
+  </a>
+  <button
+    className="btn btn-secondary w-50 d-flex align-items-center justify-content-center text-nowrap"
+    onClick={() => handleShareClick(product.darazLink)}
+    style={{
+      fontSize: '0.9rem',
+      padding: '10px 0',
+      borderRadius: '8px',
+      whiteSpace: 'nowrap',
+    }}
+  >
+    <FaShareAlt style={{ marginRight: '5px' }} />
+    Share
+  </button>
+</div>
+
                 </div>
               </div>
             </div>
