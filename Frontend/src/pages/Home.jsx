@@ -158,7 +158,6 @@ const Home = () => {
         </div>
       </div>
 
-
       {/* Product Grid */}
       <div className="container">
         <div className="row">
@@ -170,7 +169,7 @@ const Home = () => {
                   alt={product.name}
                   className="card-img-top"
                   style={{
-                    height: '300px',
+                    height: '220px', // Reduced height for a more compact view
                     objectFit: 'cover',
                     borderTopLeftRadius: '8px',
                     borderTopRightRadius: '8px',
@@ -231,7 +230,7 @@ const Home = () => {
                 <FaInstagram size={32} color="#E1306C" />
               </a>
             </div>
-            <button onClick={closeShareModal} className="btn btn-danger mt-4 w-100">Close</button>
+            <button className="btn btn-outline-secondary mt-3" onClick={closeShareModal}>Close</button>
           </div>
         </div>
       )}
