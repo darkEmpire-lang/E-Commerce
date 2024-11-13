@@ -100,46 +100,37 @@ const Home = () => {
       <div className="container">
         <div className="row">
           {filteredProducts.map((product) => (
-            <div key={product._id} className="col-6 col-md-4 col-lg-2 mb-4 d-flex">
-              <div className="card product-card shadow-sm rounded-lg overflow-hidden w-100">
+            <div key={product._id} className="col-6 col-md-4 col-lg-2 mb-4 d-flex justify-content-center">
+              <div className="card product-card shadow-sm rounded-lg" style={{ width: '170px', height: '280px' }}>
                 <img
                   src={product.imageUrl}
                   alt={product.name}
                   className="card-img-top"
                   style={{
-                    height: '200px',
+                    height: '140px',
                     objectFit: 'cover',
                     borderTopLeftRadius: '8px',
                     borderTopRightRadius: '8px',
                   }}
                 />
-                <div className="card-body p-2 d-flex flex-column">
-                  <h6 className="card-title text-truncate" style={{ fontSize: '1rem', fontWeight: 'bold' }}>
+                <div className="card-body p-2 d-flex flex-column justify-content-between">
+                  <h6 className="card-title mb-1 text-truncate" style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>
                     {product.name}
                   </h6>
-                  <p className="card-text small text-muted mb-1">
-                    {product.description.length > 50 ? product.description.slice(0, 50) + '...' : product.description}
+                  <p className="card-text mb-2 text-muted" style={{ fontSize: '0.75rem' }}>
+                    {product.description.length > 40 ? product.description.slice(0, 40) + '...' : product.description}
                   </p>
-                  <div className="mt-auto">
-                    <p className="card-text font-weight-bold text-primary">Rs {product.price}</p>
-                    <div className="d-flex gap-2 mt-2">
-                      <a
-                        href={product.darazLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm w-50 d-flex align-items-center justify-content-center"
-                      >
-                        <FaShoppingCart className="mr-1" />
-                        Buy Now
-                      </a>
-                      <button
-                        className="btn btn-outline-secondary btn-sm w-50 d-flex align-items-center justify-content-center"
-                        onClick={() => handleShareClick(product.darazLink)}
-                      >
-                        <FaShareAlt className="mr-1" />
-                        Share
-                      </button>
-                    </div>
+                  <p className="card-text mb-2 font-weight-bold" style={{ fontSize: '0.9rem' }}>Rs {product.price}</p>
+                  <div className="d-flex gap-2">
+                    <a href={product.darazLink} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm d-flex align-items-center justify-content-center flex-grow-1">
+                      <FaShoppingCart className="mr-1" /> Buy Now
+                    </a>
+                    <button
+                      className="btn btn-secondary btn-sm d-flex align-items-center justify-content-center flex-grow-1"
+                      onClick={() => handleShareClick(product.darazLink)}
+                    >
+                      <FaShareAlt className="mr-1" /> Share
+                    </button>
                   </div>
                 </div>
               </div>
