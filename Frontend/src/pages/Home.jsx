@@ -76,23 +76,65 @@ const Home = () => {
   return (
     <div className="home-container bg-light min-h-screen py-8">
       {/* Banner Section */}
-      <div className="banner-section mb-4" style={{ marginTop: '20px', width: '100%' }}>
-        <div className="banner-item" style={{ height: '250px', overflow: 'hidden' }}>
-          <div className="banner-slider">
-            <div className="banner-slide">
-              <img
-                src={bannerImages[currentBannerIndex]}
-                alt={`Banner ${currentBannerIndex + 1}`}
-                className="w-100"
-                style={{
-                  height: '250px',
-                  borderRadius: '10px',
-                  objectFit: 'cover',
-                  transition: 'transform 0.5s ease-in-out',
-                }}
-              />
-            </div>
-          </div>
+      <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
+        <div className="flex items-center gap-3 mb-4">
+          <select
+            className="p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 font-medium shadow-sm hover:bg-gray-200 transition-colors"
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            <option value="">All Categories</option>
+            {categories.map((cat, index) => (
+              <option key={index} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+
+          <input
+            type="text"
+            placeholder="Search for products..."
+            className="flex-grow p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          <button
+            type="button"
+            className="p-2 rounded-lg bg-blue-600 text-white font-medium shadow-md hover:bg-blue-700 transition-all"
+            onClick={() => console.log('Search triggered')}
+          >
+            Search
+          </button>
+        </div>
+
+        {/* Price Range Filter */}
+        <div className="flex items-center gap-3 mt-4">
+          <label htmlFor="price-range" className="block text-sm font-medium text-gray-900">
+            Min Price: Rs {minPrice}
+          </label>
+          <input
+            id="price-range"
+            type="range"
+            min="0"
+            max="500000"
+            value={minPrice}
+            onChange={(e) => setMinPrice(Number(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+          />
+
+          <label htmlFor="price-range-max" className="block text-sm font-medium text-gray-900">
+            Max Price: Rs {maxPrice}
+          </label>
+          <input
+            id="price-range-max"
+            type="range"
+            min="0"
+            max="500000"
+            value={maxPrice}
+            onChange={(e) => setMaxPrice(Number(e.target.value))}
+            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
+          />
         </div>
       </div>
 
