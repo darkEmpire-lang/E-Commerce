@@ -12,7 +12,8 @@ const app = express();
 
 // Middleware
 const allowedOrigins = [
-  'https://e-commerce-frontend-one-rouge.vercel.app', // Your frontend URL
+  'https://e-commerce-frontend-one-rouge.vercel.app', 
+   'https://deal-mate-admin-panel.vercel.app/'
 ];
 
 app.use(
