@@ -13,7 +13,8 @@ const app = express();
 // Allowed origins for CORS
 const allowedOrigins = [
   'https://e-commerce-frontend-one-rouge.vercel.app', 
-  'https://deal-mate-admin-panel.vercel.app'
+  'https://deal-mate-admin-panel.vercel.app',
+  'https://e-commerce-frontend-y03qtvm4g-pasindus-projects-e32111c9.vercel.app'
 ];
 
 // CORS middleware configuration
