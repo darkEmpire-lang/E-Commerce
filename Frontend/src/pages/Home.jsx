@@ -77,6 +77,12 @@ const Home = () => {
     setShowPriceFilter(!showPriceFilter);
   };
 
+  const resetPriceFilter = () => {
+    setMinPrice('');
+    setMaxPrice('');
+    setShowPriceFilter(false);
+  };
+
   const filterProducts = () => {
     const filteredProducts = products.filter((product) => {
       const meetsCategory = category ? product.category === category : true;
@@ -149,7 +155,6 @@ const Home = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-           
           </div>
 
           <button
@@ -163,6 +168,20 @@ const Home = () => {
             onClick={togglePriceFilter}
           >
             Price
+          </button>
+
+          {/* Reset Button */}
+          <button
+            className="btn text-white"
+            style={{
+              backgroundColor: '#ff8c00',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              borderRadius: '8px',
+            }}
+            onClick={resetPriceFilter}
+          >
+            Reset
           </button>
         </div>
 
@@ -242,33 +261,15 @@ const Home = () => {
                       href={product.darazLink}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
-                      style={{
-                        fontSize: '0.85rem',
-                        fontWeight: 'bold',
-                        color: '#fff',
-                        padding: '10px 0',
-                        backgroundColor: '#ffa500',
-                        border: 'none',
-                        borderRadius: '8px',
-                      }}
+                      className="btn btn-warning btn-sm"
                     >
                       Buy Now
                     </a>
                     <button
-                      className="btn w-50 d-flex align-items-center justify-content-center gap-2"
-                      style={{
-                        fontSize: '0.85rem',
-                        fontWeight: 'bold',
-                        padding: '10px 0',
-                        backgroundColor: '#ff8c00',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '8px',
-                      }}
                       onClick={() => handleShareClick(product.darazLink)}
+                      className="btn btn-primary btn-sm"
                     >
-                      <i className="fas fa-share"></i> Share
+                      Share
                     </button>
                   </div>
                 </div>
@@ -278,33 +279,33 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Share Modal */}
       {showShareModal && (
-        <div className="modal-backdrop">
-          <div className="share-modal">
-            <button className="close-modal" onClick={closeShareModal}>
-              &times;
-            </button>
-            <div className="d-flex justify-content-around">
+        <div className="share-modal">
+          <div className="modal-content">
+            <button className="close-modal" onClick={closeShareModal}>X</button>
+            <h5>Share this product</h5>
+            <div className="share-links">
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaFacebook size={40} color="#3b5998" />
+                <FaFacebook size={30} />
               </a>
               <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`}
+                href={`https://www.instagram.com/?url=${shareLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaWhatsapp size={40} color="#25D366" />
+                <FaInstagram size={30} />
               </a>
               <a
-                href={`https://www.instagram.com/?url=${encodeURIComponent(shareLink)}`}
+                href={`https://wa.me/?text=${shareLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <FaInstagram size={40} color="#E4405F" />
+                <FaWhatsapp size={30} />
               </a>
             </div>
           </div>
