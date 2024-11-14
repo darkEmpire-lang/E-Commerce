@@ -171,7 +171,7 @@ const Home = () => {
           </button>
         </div>
 
-        {/* Price Range Filter */}
+        {/* Price Range  */}
         {showPriceFilter && (
           <div className="d-flex align-items-center gap-3 mb-4 w-100">
             <input
