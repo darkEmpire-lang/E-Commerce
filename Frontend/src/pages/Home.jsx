@@ -130,24 +130,30 @@ const Home = () => {
       ))}
     </select>
 
-    <div className="flex-grow d-flex position-relative">
-      <input
-        type="text"
-        placeholder="Search for products..."
-        className="form-control p-3 rounded-lg shadow-sm"
-        style={{ paddingRight: '50px', fontSize: '1.1rem' }}
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-      />
-      <button
-        type="button"
-        className="position-absolute btn p-2 text-white"
-        style={{ right: '10px', top: '50%', transform: 'translateY(-50%)', backgroundColor: '#007bff' }}
-        onClick={() => filterProducts()}
-      >
-        <i className="fas fa-search"></i>
-      </button>
-    </div>
+    <div className="flex-grow d-flex position-relative" style={{ width: '100%' }}>
+  <input
+    type="text"
+    placeholder="Search for products..."
+    className="form-control p-3 rounded-lg shadow-sm"
+    style={{ paddingRight: '50px', fontSize: '1.1rem', width: '100%' }}
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+  <button
+    type="button"
+    className="position-absolute btn p-2 text-white"
+    style={{
+      right: '10px',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      backgroundColor: '#007bff',
+    }}
+    onClick={() => filterProducts()}
+  >
+    <i className="fas fa-search"></i>
+  </button>
+</div>
+
   </div>
 
   {/* Price Range Filter */}
