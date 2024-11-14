@@ -112,7 +112,7 @@ const Home = () => {
 
       <div
   className="container d-flex justify-content-center align-items-center flex-column mb-4 p-4 rounded-lg shadow-lg bg-light"
-  style={{ marginTop: '20px', maxWidth: '1200px' }}
+  style={{ marginTop: '20px', maxWidth: '1400px' }}
 >
   {/* Category & Search Bar */}
   <div className="d-flex gap-3 w-100 mb-4 align-items-center">
@@ -150,7 +150,7 @@ const Home = () => {
     }}
     onClick={() => filterProducts()}
   >
-    <i className="fas fa-search"></i>
+   
   </button>
 </div>
 
@@ -159,37 +159,7 @@ const Home = () => {
   {/* Price Range Filter */}
   
 </div>
-<div className="d-flex gap-3 w-100 align-items-center justify-content-between">
-    <label htmlFor="price-range" className="text-sm font-medium text-dark">
-      Min Price: <strong>Rs {minPrice}</strong>
-    </label>
 
-    <input
-      id="price-range"
-      type="range"
-      min="0"
-      max="500000"
-      value={minPrice}
-      onChange={(e) => setMinPrice(Number(e.target.value))}
-      className="form-range shadow-sm"
-      style={{ flex: 1, accentColor: '#007bff' }}
-    />
-
-    <input
-      id="price-range-max"
-      type="range"
-      min="0"
-      max="500000"
-      value={maxPrice}
-      onChange={(e) => setMaxPrice(Number(e.target.value))}
-      className="form-range shadow-sm"
-      style={{ flex: 1, accentColor: '#007bff' }}
-    />
-
-    <label htmlFor="price-range-max" className="text-sm font-medium text-dark">
-      Max Price: <strong>Rs {maxPrice}</strong>
-    </label>
-  </div>
 
 
      
