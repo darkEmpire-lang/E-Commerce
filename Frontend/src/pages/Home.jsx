@@ -144,23 +144,12 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search for products..."
+             className="form-control p-3 rounded-lg shadow-sm" 
               style={{ paddingRight: '50px', fontSize: '1.1rem', width: '100%' }}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button
-              type="button"
-              className="position-absolute btn p-2 text-white"
-              style={{
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                backgroundColor: '#ff8c00',
-              }}
-              onClick={filterProducts}
-            >
-            
-            </button>
+           
           </div>
 
           <button
