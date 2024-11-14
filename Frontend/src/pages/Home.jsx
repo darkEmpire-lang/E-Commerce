@@ -77,11 +77,7 @@ const Home = () => {
     setShowPriceFilter(!showPriceFilter);
   };
 
-  const resetPriceFilter = () => {
-    setMinPrice('');
-    setMaxPrice('');
-    setShowPriceFilter(false);
-  };
+  
 
   const filterProducts = () => {
     const filteredProducts = products.filter((product) => {
@@ -215,20 +211,6 @@ const Home = () => {
             >
               Filter
             </button>
-
-
-            <button
-            className="btn text-white"
-            style={{
-              backgroundColor: '#ff8c00',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              borderRadius: '8px',
-            }}
-            onClick={resetPriceFilter}
-          >
-            Reset
-          </button>
           </div>
         )}
       </div>
@@ -280,7 +262,7 @@ const Home = () => {
                         fontWeight: 'bold',
                         color: '#fff',
                         padding: '10px 0',
-                        backgroundColor: '#90EE90',
+                        backgroundColor: '#ffa500',
                         border: 'none',
                         borderRadius: '8px',
                       }}
