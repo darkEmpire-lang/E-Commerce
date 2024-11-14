@@ -112,7 +112,7 @@ const Home = () => {
 
       <div
   className="container d-flex justify-content-center align-items-center flex-column mb-4 p-4 rounded-lg shadow-lg bg-light"
-  style={{ marginTop: '20px', maxWidth: '700px' }}
+  style={{ marginTop: '20px', maxWidth: '1200px' }}
 >
   {/* Category & Search Bar */}
   <div className="d-flex gap-3 w-100 mb-4 align-items-center">
