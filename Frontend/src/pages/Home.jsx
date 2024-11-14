@@ -77,12 +77,6 @@ const Home = () => {
     setShowPriceFilter(!showPriceFilter);
   };
 
-  const resetPriceFilter = () => {
-    setMinPrice('');
-    setMaxPrice('');
-    setShowPriceFilter(false);
-  };
-
   const filterProducts = () => {
     const filteredProducts = products.filter((product) => {
       const meetsCategory = category ? product.category === category : true;
@@ -150,11 +144,12 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search for products..."
-              className="form-control p-3 rounded-lg shadow-sm"
+             className="form-control p-3 rounded-lg shadow-sm" 
               style={{ paddingRight: '50px', fontSize: '1.1rem', width: '100%' }}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
+           
           </div>
 
           <button
@@ -202,19 +197,6 @@ const Home = () => {
             >
               Filter
             </button>
-
-            <button
-              className="btn text-white"
-              style={{
-                backgroundColor: '#ff8c00',
-                fontWeight: 'bold',
-                padding: '10px 20px',
-                borderRadius: '8px',
-              }}
-              onClick={resetPriceFilter}
-            >
-              Reset
-            </button>
           </div>
         )}
       </div>
@@ -243,8 +225,7 @@ const Home = () => {
                     textOverflow: 'ellipsis', 
                     whiteSpace: 'nowrap', 
                     overflow: 'hidden', 
-                    maxWidth: '100%',
-                    color: '#333',
+                    maxWidth: '100%'
                   }}>
                     {product.name}
                   </h6>
@@ -252,58 +233,42 @@ const Home = () => {
                     {product.description.length > 100 ? product.description.slice(0, 100) + '...' : product.description}
                   </p>
                   <div className="d-flex justify-content-between align-items-center mb-3">
-                    <p className="card-text" style={{ fontWeight: 'bold', fontSize: '1.2rem', color: '#444' }}>
+                    <p className="card-text" style={{ fontWeight: 'bold', fontSize: '1rem' }}>
                       Rs {product.price}
                     </p>
                   </div>
                   <div className="d-flex gap-2 justify-content-between">
                     <a
-                      href={product.buyNowLink}
-                      className="btn text-white"
+                      href={product.darazLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
                       style={{
-                        backgroundColor: '#ff8c00',
-                        padding: '10px 20px',
-                        borderRadius: '8px',
+                        fontSize: '0.85rem',
                         fontWeight: 'bold',
+                        color: '#fff',
+                        padding: '10px 0',
+                        backgroundColor: '#ffa500',
+                        border: 'none',
+                        borderRadius: '8px',
                       }}
                     >
                       Buy Now
                     </a>
                     <button
-                      className="btn text-white"
+                      className="btn w-50 d-flex align-items-center justify-content-center gap-2"
                       style={{
-                        backgroundColor: '#3b5998',
-                        padding: '10px 20px',
-                        borderRadius: '8px',
+                        fontSize: '0.85rem',
                         fontWeight: 'bold',
-                      }}
-                      onClick={() => handleShareClick(product.shareLink)}
-                    >
-                      <FaFacebook />
-                    </button>
-                    <button
-                      className="btn text-white"
-                      style={{
-                        backgroundColor: '#e4405f',
-                        padding: '10px 20px',
+                        padding: '10px 0',
+                        backgroundColor: '#ff8c00',
+                        color: '#fff',
+                        border: 'none',
                         borderRadius: '8px',
-                        fontWeight: 'bold',
                       }}
-                      onClick={() => handleShareClick(product.shareLink)}
+                      onClick={() => handleShareClick(product.darazLink)}
                     >
-                      <FaInstagram />
-                    </button>
-                    <button
-                      className="btn text-white"
-                      style={{
-                        backgroundColor: '#25d366',
-                        padding: '10px 20px',
-                        borderRadius: '8px',
-                        fontWeight: 'bold',
-                      }}
-                      onClick={() => handleShareClick(product.shareLink)}
-                    >
-                      <FaWhatsapp />
+                      <i className="fas fa-share"></i> Share
                     </button>
                   </div>
                 </div>
@@ -313,14 +278,34 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Share Modal */}
       {showShareModal && (
-        <div className="modal-overlay" onClick={closeShareModal}>
-          <div className="modal-content p-4 bg-white rounded-lg shadow-sm" style={{ maxWidth: '600px', margin: '0 auto' }}>
-            <h4 className="text-center">Share this product</h4>
-            <p className="text-center">Link: <a href={shareLink} target="_blank" rel="noopener noreferrer">{shareLink}</a></p>
-            <div className="d-flex justify-content-center">
-              <button className="btn btn-outline-secondary" onClick={closeShareModal}>Close</button>
+        <div className="modal-backdrop">
+          <div className="share-modal">
+            <button className="close-modal" onClick={closeShareModal}>
+              &times;
+            </button>
+            <div className="d-flex justify-content-around">
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook size={40} color="#3b5998" />
+              </a>
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp size={40} color="#25D366" />
+              </a>
+              <a
+                href={`https://www.instagram.com/?url=${encodeURIComponent(shareLink)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram size={40} color="#E4405F" />
+              </a>
             </div>
           </div>
         </div>
