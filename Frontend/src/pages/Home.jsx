@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaFacebook, FaInstagram, FaWhatsapp, FaShoppingCart, FaShareAlt } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import '../styles/Home.css';
 import banner1 from '../assets/banner1.png';
 import banner2 from '../assets/banner2.png';
@@ -89,7 +88,7 @@ const Home = () => {
   
     console.log('Filtered Products:', filteredProducts);
   };
-  
+
   return (
     <div className="home-container bg-light min-h-screen py-8">
       {/* Banner Section */}
@@ -120,8 +119,16 @@ const Home = () => {
         {/* Category & Search Bar */}
         <div className="d-flex gap-3 w-100 mb-4 align-items-center">
           <select
-           
-            style={{ minWidth: '150px', backgroundColor: '#ffa500' }}
+            className="btn text-white"
+            style={{
+              minWidth: '150px',
+              backgroundColor: '#ffa500',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              color: '#fff',
+              outline: 'none',
+            }}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -243,38 +250,39 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="d-flex gap-2 justify-content-between">
-  <a
-    href={product.darazLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
-    style={{
-      fontSize: '0.85rem',  // Slightly reduce font size
-      borderRadius: '8px',
-      backgroundColor: '#ff8c00',
-      color: '#fff',
-      whiteSpace: 'nowrap',  // Prevents text wrapping
-      padding: '8px 10px',   // Adjust padding for smaller screens
-    }}
-  >
-    Buy Now
-  </a>
-  <button
-    className="btn btn-secondary w-50 d-flex align-items-center justify-content-center text-center gap-2"
-    style={{
-      fontSize: '0.85rem',  // Slightly reduce font size
-      borderRadius: '8px',
-      backgroundColor: '#333',
-      color: '#fff',
-      whiteSpace: 'nowrap',  // Prevents text wrapping
-      padding: '8px 10px',   // Adjust padding for smaller screens
-    }}
-    onClick={() => handleShareClick(product.shareLink)}
-  >
-    Share
-  </button>
-</div>
-
+                    <a
+                      href={product.darazLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
+                      style={{
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        color: '#fff',
+                        padding: '10px 0',
+                        backgroundColor: '#ffa500',
+                        border: 'none',
+                        borderRadius: '8px',
+                      }}
+                    >
+                      Buy Now
+                    </a>
+                    <button
+                      className="btn w-50 d-flex align-items-center justify-content-center gap-2"
+                      style={{
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        padding: '10px 0',
+                        backgroundColor: '#ff8c00',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                      }}
+                      onClick={() => handleShareClick(product.darazLink)}
+                    >
+                      <i className="fas fa-share"></i> Share
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -282,41 +290,35 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Share Modal */}
       {showShareModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h4 className="modal-title">Share Product</h4>
-            <p>Share this product with your friends:</p>
-            <div className="share-links d-flex gap-3 justify-content-center mt-3">
+        <div className="modal-backdrop">
+          <div className="share-modal">
+            <button className="close-modal" onClick={closeShareModal}>
+              &times;
+            </button>
+            <div className="d-flex justify-content-around">
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-decoration-none text-primary"
               >
-                <FaFacebook size={32} />
+                <FaFacebook size={40} color="#3b5998" />
               </a>
               <a
-                href={`https://api.whatsapp.com/send?text=${shareLink}`}
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-decoration-none text-success"
               >
-                <FaWhatsapp size={32} />
+                <FaWhatsapp size={40} color="#25D366" />
               </a>
               <a
-                href={`https://www.instagram.com/`}
+                href={`https://www.instagram.com/?url=${encodeURIComponent(shareLink)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-decoration-none text-danger"
               >
-                <FaInstagram size={32} />
+                <FaInstagram size={40} color="#E4405F" />
               </a>
             </div>
-            <button className="modal-close" onClick={closeShareModal}>
-              Close
-            </button>
           </div>
         </div>
       )}
