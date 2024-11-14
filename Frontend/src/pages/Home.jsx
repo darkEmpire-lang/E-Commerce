@@ -73,6 +73,20 @@ const Home = () => {
     setShowShareModal(false);
   };
 
+
+  const filterProducts = () => {
+    const filteredProducts = products.filter((product) => {
+      const meetsCategory = category ? product.category === category : true;
+      const meetsSearchTerm = searchTerm ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+      const meetsPriceRange = product.price >= minPrice && product.price <= maxPrice;
+  
+      return meetsCategory && meetsSearchTerm && meetsPriceRange;
+    });
+  
+    console.log('Filtered Products:', filteredProducts);
+  };
+  
+
   return (
     <div className="home-container bg-light min-h-screen py-8">
       {/* Banner Section */}
@@ -96,67 +110,82 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
-        <div className="flex items-center gap-3 mb-4">
-          <select
-            className="p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 font-medium shadow-sm hover:bg-gray-200 transition-colors"
-            value={category}
-            onChange={(e) => setCategory(e.target.value)}
-          >
-            <option value="">All Categories</option>
-            {categories.map((cat, index) => (
-              <option key={index} value={cat}>
-                {cat}
-              </option>
-            ))}
-          </select>
+      <div
+  className="container d-flex justify-content-center align-items-center flex-column mb-4 p-4 rounded-lg shadow-lg bg-light"
+  style={{ marginTop: '20px', maxWidth: '700px' }}
+>
+  {/* Category & Search Bar */}
+  <div className="d-flex gap-3 w-100 mb-4 align-items-center">
+    <select
+      className="p-3 rounded-lg bg-primary text-white font-medium shadow-md"
+      style={{ minWidth: '150px' }}
+      value={category}
+      onChange={(e) => setCategory(e.target.value)}
+    >
+      <option value="">All Categories</option>
+      {categories.map((cat, index) => (
+        <option key={index} value={cat}>
+          {cat}
+        </option>
+      ))}
+    </select>
 
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="flex-grow p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <div className="flex-grow d-flex position-relative">
+      <input
+        type="text"
+        placeholder="Search for products..."
+        className="form-control p-3 rounded-lg shadow-sm"
+        style={{ paddingRight: '50px', fontSize: '1.1rem' }}
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <button
+        type="button"
+        className="position-absolute btn p-2 text-white"
+        style={{ right: '10px', top: '50%', transform: 'translateY(-50%)', backgroundColor: '#007bff' }}
+        onClick={() => filterProducts()}
+      >
+        <i className="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
 
-          <button
-            type="button"
-            className="p-2 rounded-lg bg-blue-600 text-white font-medium shadow-md hover:bg-blue-700 transition-all"
-            onClick={() => console.log('Search triggered')}
-          >
-            Search
-          </button>
-        </div>
+  {/* Price Range Filter */}
+  <div className="d-flex gap-3 w-100 align-items-center justify-content-between">
+    <label htmlFor="price-range" className="text-sm font-medium text-dark">
+      Min Price: <strong>Rs {minPrice}</strong>
+    </label>
 
-        {/* Price Range Filter */}
-        <div className="flex items-center gap-3 mt-4">
-          <label htmlFor="price-range" className="block text-sm font-medium text-gray-900">
-            Min Price: Rs {minPrice}
-          </label>
-          <input
-            id="price-range"
-            type="range"
-            min="0"
-            max="500000"
-            value={minPrice}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-          />
+    <input
+      id="price-range"
+      type="range"
+      min="0"
+      max="500000"
+      value={minPrice}
+      onChange={(e) => setMinPrice(Number(e.target.value))}
+      className="form-range shadow-sm"
+      style={{ flex: 1, accentColor: '#007bff' }}
+    />
 
-          <label htmlFor="price-range-max" className="block text-sm font-medium text-gray-900">
-            Max Price: Rs {maxPrice}
-          </label>
-          <input
-            id="price-range-max"
-            type="range"
-            min="0"
-            max="500000"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-          />
-        </div>
-      </div>
+    <input
+      id="price-range-max"
+      type="range"
+      min="0"
+      max="500000"
+      value={maxPrice}
+      onChange={(e) => setMaxPrice(Number(e.target.value))}
+      className="form-range shadow-sm"
+      style={{ flex: 1, accentColor: '#007bff' }}
+    />
+
+    <label htmlFor="price-range-max" className="text-sm font-medium text-dark">
+      Max Price: <strong>Rs {maxPrice}</strong>
+    </label>
+  </div>
+</div>
+
+
+     
 
       {/* Product Grid */}
       <div className="container">
