@@ -120,7 +120,7 @@ const Home = () => {
         {/* Category & Search Bar */}
         <div className="d-flex gap-3 w-100 mb-4 align-items-center">
           <select
-           
+            className="p-3 rounded-lg text-white shadow-md"
             style={{ minWidth: '150px', backgroundColor: '#ffa500' }}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -142,19 +142,7 @@ const Home = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <button
-              type="button"
-              className="position-absolute btn p-2 text-white"
-              style={{
-                right: '10px',
-                top: '50%',
-                transform: 'translateY(-50%)',
-                backgroundColor: '#ff8c00',
-              }}
-              onClick={filterProducts}
-            >
-              <i className="fas fa-search"></i>
-            </button>
+           
           </div>
 
           <button
@@ -243,38 +231,33 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="d-flex gap-2 justify-content-between">
-  <a
-    href={product.darazLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
-    style={{
-      fontSize: '0.85rem',  // Slightly reduce font size
-      borderRadius: '8px',
-      backgroundColor: '#ff8c00',
-      color: '#fff',
-      whiteSpace: 'nowrap',  // Prevents text wrapping
-      padding: '8px 10px',   // Adjust padding for smaller screens
-    }}
-  >
-    Buy Now
-  </a>
-  <button
-    className="btn btn-secondary w-50 d-flex align-items-center justify-content-center text-center gap-2"
-    style={{
-      fontSize: '0.85rem',  // Slightly reduce font size
-      borderRadius: '8px',
-      backgroundColor: '#333',
-      color: '#fff',
-      whiteSpace: 'nowrap',  // Prevents text wrapping
-      padding: '8px 10px',   // Adjust padding for smaller screens
-    }}
-    onClick={() => handleShareClick(product.shareLink)}
-  >
-    Share
-  </button>
-</div>
-
+                    <a
+                      href={product.darazLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
+                      style={{
+                        fontSize: '0.9rem',
+                        borderRadius: '8px',
+                        backgroundColor: '#ff8c00',
+                        color: '#fff',
+                      }}
+                    >
+                      Buy Now
+                    </a>
+                    <button
+                      className="btn btn-secondary w-50 d-flex align-items-center justify-content-center text-center gap-2"
+                      style={{
+                        fontSize: '0.9rem',
+                        borderRadius: '8px',
+                        backgroundColor: '#333',
+                        color: '#fff',
+                      }}
+                      onClick={() => handleShareClick(product.shareLink)}
+                    >
+                      Share
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
