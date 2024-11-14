@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { FaFacebook, FaInstagram, FaWhatsapp, FaShoppingCart, FaShareAlt } from 'react-icons/fa';
 import '../styles/Home.css';
 import banner1 from '../assets/banner1.png';
 import banner2 from '../assets/banner2.png';
@@ -88,7 +89,7 @@ const Home = () => {
   
     console.log('Filtered Products:', filteredProducts);
   };
-
+  
   return (
     <div className="home-container bg-light min-h-screen py-8">
       {/* Banner Section */}
@@ -119,16 +120,8 @@ const Home = () => {
         {/* Category & Search Bar */}
         <div className="d-flex gap-3 w-100 mb-4 align-items-center">
           <select
-            className="btn text-white"
-            style={{
-              minWidth: '150px',
-              backgroundColor: '#ffa500',
-              fontWeight: 'bold',
-              padding: '10px 20px',
-              borderRadius: '8px',
-              color: '#fff',
-              outline: 'none',
-            }}
+           
+            style={{ minWidth: '150px', backgroundColor: '#ffa500' }}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -144,12 +137,24 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search for products..."
-             className="form-control p-3 rounded-lg shadow-sm" 
+              className="form-control p-3 rounded-lg shadow-sm"
               style={{ paddingRight: '50px', fontSize: '1.1rem', width: '100%' }}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-           
+            <button
+              type="button"
+              className="position-absolute btn p-2 text-white"
+              style={{
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                backgroundColor: '#ff8c00',
+              }}
+              onClick={filterProducts}
+            >
+              <i className="fas fa-search"></i>
+            </button>
           </div>
 
           <button
@@ -238,39 +243,38 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="d-flex gap-2 justify-content-between">
-                    <a
-                      href={product.darazLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
-                      style={{
-                        fontSize: '0.85rem',
-                        fontWeight: 'bold',
-                        color: '#fff',
-                        padding: '10px 0',
-                        backgroundColor: '#ffa500',
-                        border: 'none',
-                        borderRadius: '8px',
-                      }}
-                    >
-                      Buy Now
-                    </a>
-                    <button
-                      className="btn w-50 d-flex align-items-center justify-content-center gap-2"
-                      style={{
-                        fontSize: '0.85rem',
-                        fontWeight: 'bold',
-                        padding: '10px 0',
-                        backgroundColor: '#ff8c00',
-                        color: '#fff',
-                        border: 'none',
-                        borderRadius: '8px',
-                      }}
-                      onClick={() => handleShareClick(product.darazLink)}
-                    >
-                      <i className="fas fa-share"></i> Share
-                    </button>
-                  </div>
+  <a
+    href={product.darazLink}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
+    style={{
+      fontSize: '0.85rem',  // Slightly reduce font size
+      borderRadius: '8px',
+      backgroundColor: '#ff8c00',
+      color: '#fff',
+      whiteSpace: 'nowrap',  // Prevents text wrapping
+      padding: '8px 10px',   // Adjust padding for smaller screens
+    }}
+  >
+    Buy Now
+  </a>
+  <button
+    className="btn btn-secondary w-50 d-flex align-items-center justify-content-center text-center gap-2"
+    style={{
+      fontSize: '0.85rem',  // Slightly reduce font size
+      borderRadius: '8px',
+      backgroundColor: '#333',
+      color: '#fff',
+      whiteSpace: 'nowrap',  // Prevents text wrapping
+      padding: '8px 10px',   // Adjust padding for smaller screens
+    }}
+    onClick={() => handleShareClick(product.shareLink)}
+  >
+    Share
+  </button>
+</div>
+
                 </div>
               </div>
             </div>
@@ -278,35 +282,41 @@ const Home = () => {
         </div>
       </div>
 
+      {/* Share Modal */}
       {showShareModal && (
-        <div className="modal-backdrop">
-          <div className="share-modal">
-            <button className="close-modal" onClick={closeShareModal}>
-              &times;
-            </button>
-            <div className="d-flex justify-content-around">
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h4 className="modal-title">Share Product</h4>
+            <p>Share this product with your friends:</p>
+            <div className="share-links d-flex gap-3 justify-content-center mt-3">
               <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`}
+                href={`https://www.facebook.com/sharer/sharer.php?u=${shareLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-decoration-none text-primary"
               >
-                <FaFacebook size={40} color="#3b5998" />
+                <FaFacebook size={32} />
               </a>
               <a
-                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`}
+                href={`https://api.whatsapp.com/send?text=${shareLink}`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-decoration-none text-success"
               >
-                <FaWhatsapp size={40} color="#25D366" />
+                <FaWhatsapp size={32} />
               </a>
               <a
-                href={`https://www.instagram.com/?url=${encodeURIComponent(shareLink)}`}
+                href={`https://www.instagram.com/`}
                 target="_blank"
                 rel="noopener noreferrer"
+                className="text-decoration-none text-danger"
               >
-                <FaInstagram size={40} color="#E4405F" />
+                <FaInstagram size={32} />
               </a>
             </div>
+            <button className="modal-close" onClick={closeShareModal}>
+              Close
+            </button>
           </div>
         </div>
       )}
