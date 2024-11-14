@@ -157,7 +157,9 @@ const Home = () => {
   </div>
 
   {/* Price Range Filter */}
-  <div className="d-flex gap-3 w-100 align-items-center justify-content-between">
+  
+</div>
+<div className="d-flex gap-3 w-100 align-items-center justify-content-between">
     <label htmlFor="price-range" className="text-sm font-medium text-dark">
       Min Price: <strong>Rs {minPrice}</strong>
     </label>
@@ -188,7 +190,6 @@ const Home = () => {
       Max Price: <strong>Rs {maxPrice}</strong>
     </label>
   </div>
-</div>
 
 
      
