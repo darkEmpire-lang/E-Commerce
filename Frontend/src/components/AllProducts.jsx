@@ -50,7 +50,7 @@ const AllProducts = () => {
 
   return (
     <div className="home-container bg-light min-h-screen py-8">
-      {/* Search and Filter Section */}
+  
       <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
         <div className="flex items-center gap-3 mb-4">
           <select
