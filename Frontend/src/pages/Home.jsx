@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import { FaFacebook, FaInstagram, FaWhatsapp, FaShoppingCart, FaShareAlt } from 'react-icons/fa';
+import { FaFacebook, FaInstagram, FaWhatsapp } from 'react-icons/fa';
 import '../styles/Home.css';
 import banner1 from '../assets/banner1.png';
 import banner2 from '../assets/banner2.png';
@@ -10,13 +9,14 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(500000);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
   const [category, setCategory] = useState('');
   const [categories, setCategories] = useState([]);
   const [currentBannerIndex, setCurrentBannerIndex] = useState(0);
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareLink, setShareLink] = useState('');
+  const [showPriceFilter, setShowPriceFilter] = useState(false);
 
   const bannerImages = [banner1, banner2, banner3];
 
@@ -73,6 +73,22 @@ const Home = () => {
     setShowShareModal(false);
   };
 
+  const togglePriceFilter = () => {
+    setShowPriceFilter(!showPriceFilter);
+  };
+
+  const filterProducts = () => {
+    const filteredProducts = products.filter((product) => {
+      const meetsCategory = category ? product.category === category : true;
+      const meetsSearchTerm = searchTerm ? product.name.toLowerCase().includes(searchTerm.toLowerCase()) : true;
+      const meetsPriceRange = product.price >= minPrice && product.price <= maxPrice;
+  
+      return meetsCategory && meetsSearchTerm && meetsPriceRange;
+    });
+  
+    console.log('Filtered Products:', filteredProducts);
+  };
+
   return (
     <div className="home-container bg-light min-h-screen py-8">
       {/* Banner Section */}
@@ -96,10 +112,23 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="container d-flex justify-content-center align-items-center flex-column mb-4" style={{ marginTop: '20px' }}>
-        <div className="flex items-center gap-3 mb-4">
+      <div
+        className="container d-flex justify-content-center align-items-center flex-column mb-4 p-4 rounded-lg shadow-lg bg-light"
+        style={{ marginTop: '20px', maxWidth: '1400px' }}
+      >
+        {/* Category & Search Bar */}
+        <div className="d-flex gap-3 w-100 mb-4 align-items-center">
           <select
-            className="p-2 rounded-lg bg-gray-100 border border-gray-300 text-gray-800 font-medium shadow-sm hover:bg-gray-200 transition-colors"
+            className="btn text-white"
+            style={{
+              minWidth: '150px',
+              backgroundColor: '#ffa500',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              borderRadius: '8px',
+              color: '#fff',
+              outline: 'none',
+            }}
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -111,51 +140,77 @@ const Home = () => {
             ))}
           </select>
 
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="flex-grow p-2 rounded-lg bg-gray-50 border border-gray-300 text-gray-800 shadow-sm focus:ring-2 focus:ring-blue-500 transition-all"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+          <div className="flex-grow d-flex position-relative" style={{ width: '100%' }}>
+            <input
+              type="text"
+              placeholder="Search for products..."
+              className="form-control p-3 rounded-lg shadow-sm"
+              style={{ paddingRight: '50px', fontSize: '1.1rem', width: '100%' }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <button
+              type="button"
+              className="position-absolute btn p-2 text-white"
+              style={{
+                right: '10px',
+                top: '50%',
+                transform: 'translateY(-50%)',
+                backgroundColor: '#ff8c00',
+              }}
+              onClick={filterProducts}
+            >
+              <i className="fas fa-search"></i>
+            </button>
+          </div>
 
           <button
-            type="button"
-            className="p-2 rounded-lg bg-blue-600 text-white font-medium shadow-md hover:bg-blue-700 transition-all"
-            onClick={() => console.log('Search triggered')}
+            className="btn text-white"
+            style={{
+              backgroundColor: '#ffa500',
+              fontWeight: 'bold',
+              padding: '10px 20px',
+              borderRadius: '8px',
+            }}
+            onClick={togglePriceFilter}
           >
-            Search
+            Price
           </button>
         </div>
 
         {/* Price Range Filter */}
-        <div className="flex items-center gap-3 mt-4">
-          <label htmlFor="price-range" className="block text-sm font-medium text-gray-900">
-            Min Price: Rs {minPrice}
-          </label>
-          <input
-            id="price-range"
-            type="range"
-            min="0"
-            max="500000"
-            value={minPrice}
-            onChange={(e) => setMinPrice(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-          />
-
-          <label htmlFor="price-range-max" className="block text-sm font-medium text-gray-900">
-            Max Price: Rs {maxPrice}
-          </label>
-          <input
-            id="price-range-max"
-            type="range"
-            min="0"
-            max="500000"
-            value={maxPrice}
-            onChange={(e) => setMaxPrice(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700"
-          />
-        </div>
+        {showPriceFilter && (
+          <div className="d-flex align-items-center gap-3 mb-4 w-100">
+            <input
+              type="number"
+              placeholder="Min"
+              className="form-control p-2 shadow-sm"
+              style={{ width: '100px', borderRadius: '8px' }}
+              value={minPrice}
+              onChange={(e) => setMinPrice(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Max"
+              className="form-control p-2 shadow-sm"
+              style={{ width: '100px', borderRadius: '8px' }}
+              value={maxPrice}
+              onChange={(e) => setMaxPrice(e.target.value)}
+            />
+            <button
+              className="btn text-white"
+              style={{
+                backgroundColor: '#ff8c00',
+                fontWeight: 'bold',
+                padding: '10px 20px',
+                borderRadius: '8px',
+              }}
+              onClick={filterProducts}
+            >
+              Filter
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Product Grid */}
@@ -169,7 +224,7 @@ const Home = () => {
                   alt={product.name}
                   className="card-img-top"
                   style={{
-                    height: '220px', // Reduced height for a more compact view
+                    height: '220px',
                     objectFit: 'cover',
                     borderTopLeftRadius: '8px',
                     borderTopRightRadius: '8px',
@@ -195,36 +250,39 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="d-flex gap-2 justify-content-between">
-  <a
-    href={product.darazLink}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-nowrap"
-    style={{
-      fontSize: '0.9rem',
-      padding: '10px 0',
-      borderRadius: '8px',
-      whiteSpace: 'nowrap',
-    }}
-  >
-    <FaShoppingCart style={{ marginRight: '5px' }} />
-    Buy Now
-  </a>
-  <button
-    className="btn btn-secondary w-50 d-flex align-items-center justify-content-center text-nowrap"
-    onClick={() => handleShareClick(product.darazLink)}
-    style={{
-      fontSize: '0.9rem',
-      padding: '10px 0',
-      borderRadius: '8px',
-      whiteSpace: 'nowrap',
-    }}
-  >
-    <FaShareAlt style={{ marginRight: '5px' }} />
-    Share
-  </button>
-</div>
-
+                    <a
+                      href={product.darazLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-primary w-50 d-flex align-items-center justify-content-center text-center gap-2"
+                      style={{
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        color: '#fff',
+                        padding: '10px 0',
+                        backgroundColor: '#ffa500',
+                        border: 'none',
+                        borderRadius: '8px',
+                      }}
+                    >
+                      Buy Now
+                    </a>
+                    <button
+                      className="btn w-50 d-flex align-items-center justify-content-center gap-2"
+                      style={{
+                        fontSize: '0.85rem',
+                        fontWeight: 'bold',
+                        padding: '10px 0',
+                        backgroundColor: '#ff8c00',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '8px',
+                      }}
+                      onClick={() => handleShareClick(product.darazLink)}
+                    >
+                      <i className="fas fa-share"></i> Share
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -232,23 +290,35 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Share Modal */}
       {showShareModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h4>Share Product</h4>
+        <div className="modal-backdrop">
+          <div className="share-modal">
+            <button className="close-modal" onClick={closeShareModal}>
+              &times;
+            </button>
             <div className="d-flex justify-content-around">
-              <a href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`} target="_blank" rel="noopener noreferrer">
-                <FaWhatsapp size={32} color="#25D366" />
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaFacebook size={40} color="#3b5998" />
               </a>
-              <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`} target="_blank" rel="noopener noreferrer">
-                <FaFacebook size={32} color="#4267B2" />
+              <a
+                href={`https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaWhatsapp size={40} color="#25D366" />
               </a>
-              <a href={`https://www.instagram.com/?url=${encodeURIComponent(shareLink)}`} target="_blank" rel="noopener noreferrer">
-                <FaInstagram size={32} color="#E1306C" />
+              <a
+                href={`https://www.instagram.com/?url=${encodeURIComponent(shareLink)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <FaInstagram size={40} color="#E4405F" />
               </a>
             </div>
-            <button className="btn btn-outline-secondary mt-3" onClick={closeShareModal}>Close</button>
           </div>
         </div>
       )}
