@@ -144,7 +144,6 @@ const Home = () => {
             <input
               type="text"
               placeholder="Search for products..."
-              className="form-control p-3 rounded-lg shadow-sm"
               style={{ paddingRight: '50px', fontSize: '1.1rem', width: '100%' }}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
