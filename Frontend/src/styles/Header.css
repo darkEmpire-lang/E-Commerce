@@ -2,52 +2,73 @@
 
 /* Full width navbar */
 .w-100 {
+  width: 100%;
+}
+
+/* Styling for Logo */
+.logo {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #f8f9fa; /* Light color for the logo */
+}
+
+.logo:hover {
+  color: #ffc107; /* Gold color on hover */
+  text-decoration: none;
+}
+
+/* Navbar Links */
+.nav-link {
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ffc107; /* Gold color on hover */
+}
+
+/* Shop Button */
+.shop-button {
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.shop-button:hover {
+  background-color: #ffc107; /* Gold background on hover */
+  border-color: #ffc107; /* Matching border color */
+  color: #333;
+}
+
+/* Additional Styling for mobile responsiveness */
+@media (max-width: 992px) {
+  .navbar-nav {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .nav-link {
+    font-size: 1rem; /* Slightly smaller font for mobile */
+    padding: 0.5rem 0; /* Adjust padding */
+  }
+
+  .shop-button {
+    padding: 8px 16px; /* Smaller padding for mobile */
+    font-size: 1rem;
+  }
+}
+
+/* Mobile view dropdown */
+@media (max-width: 768px) {
+  .dropdown-menu {
+    position: static;
+    float: none;
+    margin-top: 10px;
     width: 100%;
   }
-  
-  /* Styling for Logo */
-  .logo {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #f8f9fa; /* Light color for the logo */
-  }
-  
-  .logo:hover {
-    color: #ffc107; /* Gold color on hover */
-    text-decoration: none;
-  }
-  
-  /* Navbar Links */
-  .nav-link {
-    font-size: 1.1rem;
-    transition: color 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    color: #ffc107; /* Gold color on hover */
-  }
-  
-  /* Shop Button */
-  .shop-button {
-    padding: 10px 20px;
-    font-size: 1.1rem;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .shop-button:hover {
-    background-color: #ffc107; /* Gold background on hover */
-    border-color: #ffc107; /* Matching border color */
-    color: #333;
-  }
-  
-  /* Additional Styling for mobile responsiveness */
-  @media (max-width: 992px) {
-    .navbar-nav {
-      text-align: center;
-      margin-top: 10px;
-    }
-  }
-  /* src/styles/Header.css */
+}
+
+/* Navbar Dropdown on hover (desktop) */
 .nav-item:hover .dropdown-menu {
   display: block;
 }

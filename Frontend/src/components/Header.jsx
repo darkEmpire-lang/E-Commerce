@@ -2,7 +2,7 @@
 import React from 'react';
 import { Navbar, Nav, Container, Button, Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import '../styles/Header.css'; // Updated path
+import '../styles/Header.css';
 
 const Header = () => {
   return (
