@@ -159,7 +159,7 @@ const Home = () => {
               }}
               onClick={filterProducts}
             >
-              <i className="fas fa-search"></i>
+            
             </button>
           </div>
 
